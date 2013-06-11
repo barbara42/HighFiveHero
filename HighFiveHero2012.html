@@ -1,0 +1,335 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Imma Be Remixin' </title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+</head>
+<body>
+Imma be remixin'
+	<p>- person one: touch earth controller (black) to skin
+	<p>- person two: put a glove on each hand
+	<p>- HIGH FIVE, see what happens
+	<p>
+	<p>Easy: up, down, left, right
+	<br>Hard: up + down, down + up, left + right, right + left
+	<div><br>
+	<input type="radio" name="group2" id="singleLadies"  > Single Ladies<br>
+	<input type="radio" name="group2" id="immaBe" checked> Imma Be<br></div>
+	<div id = 'bep'><br>
+	<input type="radio" name="group1" id="easy" checked > Easy<br>
+	<input type="radio" name="group1" id="hard" > Hard<br></div>  
+	<div id = "prompt"> </div>  
+	<div id='info'> </div>
+	
+</body>		
+<script type="text/javascript">
+
+var a; var b; var c; var d; var e; var f; var g; var h;
+var easy = true;
+var beyonce = true;
+var allAudio =  [];     // an array that holds all the audio
+
+function setUp(){
+	allAudio = [];
+	allAudio.push(new Audio('imma.mp3'));
+	allAudio.push(new Audio('be.mp3'));
+	allAudio.push(new Audio('thisway.mp3'));
+	allAudio.push(new Audio('richbaby.mp3'));
+}
+
+setUp();
+$('#singleLadies').change(function() {
+  	if (document.getElementById('singleLadies').checked){
+		allAudio =  [];   
+		console.log('singleLadies');
+		beyonce = true;
+		beyonceRules();
+		
+	} else {
+		}
+	});
+	$('#immaBe').change(function() {
+	  	if (document.getElementById('immaBe').checked){
+			allAudio =  [];   
+			beyonce = false;
+			console.log('BEP');
+			noBeyonce();
+		} else {
+			console.log('immaBe');
+			}
+		});
+	$('#easy').change(function() {
+  	if (document.getElementById('easy').checked){
+		console.log('easy');
+		easy = true;
+		
+	} else {
+		console.log('hard');
+		}
+	});
+	$('#hard').change(function() {
+	  	if (document.getElementById('hard').checked){
+			console.log('hard');
+			easy = false;
+		} else {
+			console.log('easy');
+			}
+		});
+	
+
+
+function noBeyonce(){
+	console.log('yay');
+ 	a = "Imma imma imma";
+	b = "be be be";
+ 	c = "this was";
+	d = "rich baby rich baby wut wut ";
+ 	e = 'imma1.mp3';
+ 	f = 'be2.mp3';
+ 	g = 'thisway.mp3';
+	h = 'richbaby2.mp3';
+	allAudio.push(new Audio(e));
+	allAudio.push(new Audio(f));
+	allAudio.push(new Audio(g));
+	allAudio.push(new Audio(h));
+}
+
+function beyonceRules() {
+ 	a = "All the single ladies!";
+ 	b = "Now put your hands UP!";
+ 	c = "If you like it then you should've put a ring on it";
+	d = "Oh oh oh oh oh oh oh oh oh oh oh oh oh oh oh ";
+	e = 'singleLadies.mp3';
+ 	f = 'putYourHandsUp.mp3';
+	g = 'putARingOnIt.mp3';
+	h = 'oh.mp3';
+	allAudio.push(new Audio(e));
+	allAudio.push(new Audio(f));
+	allAudio.push(new Audio(g));
+	allAudio.push(new Audio(h));
+}
+
+
+prompt();
+/*
+*/
+
+function keydown(evt){
+	if (easy){
+		easyMode(evt);
+	}
+	else{
+		hardMode(evt);
+	}
+}
+function playAudio(audio) {
+    stopAll();
+    audio.currentTime = 0;  // starts the audio back at the beginning
+    audio.play();           // plays it
+}
+function stopAll(){
+	for (var i = 0; i < allAudio.length; i++) {
+        allAudio[i].pause();
+	}
+}
+
+function info(s) {
+   $("#info").text(s);
+}
+var tempR;
+var tempL;
+var tempU;
+var tempD;
+
+
+function prompt(){
+	var randomnumber = Math.floor(Math.random()*4);
+	if (randomnumber == 0){
+		$("#prompt").text("R + L");
+		tempR = 1;
+		tempL = 2;
+		tempU = 0;
+		tempD = 0;
+	} 	
+	if (randomnumber == 1){
+		$("#prompt").text("L + R");
+		tempL = 1;
+		tempR = 2;
+		tempU = 0;
+		tempD = 0;
+	}
+	if (randomnumber == 2){
+		$("#prompt").text("U + D");
+		tempU = 1;
+		tempD = 2;
+		tempR = 0; 
+		tempL = 0;
+	}
+	if (randomnumber == 3){
+		$("#prompt").text("D + U");
+		tempD = 1; 
+		tempU = 2;
+		tempR = 0;
+		tempL = 0;
+	}
+}
+// called when a key is pressed
+
+var keyNum = 0;
+var rightNum=0;
+var leftNum = 0;
+var upNum = 0; 
+var downNum = 0; 
+
+
+function easyMode(evt) {
+
+    console.log(evt);
+    if (evt.which == 39) {  // right arrow
+        console.log('right arrow');
+        playAudio(allAudio[0]);
+    }
+
+    if (evt.which == 37) {  // left arrow
+        console.log('left arrow');
+        playAudio(allAudio[1]);
+    }
+
+    if (evt.which ==38 ) {  // up arrow
+        console.log('up arrow');
+        playAudio(allAudio[2]);
+    }
+
+    if (evt.which == 40  ) {  // down arrow
+        console.log('down arrow');
+        playAudio(allAudio[3]);
+    }
+
+    if (evt.which == 32  ) {  // stop all
+        console.log('space');
+        for (var i = 0; i < allAudio.length; i++) {
+            allAudio[i].pause();
+        }
+    }
+}
+
+function hardMode(evt) {
+  
+ 	console.log(evt);
+	
+	//KEYS PRESSED
+    if (evt.which == 39) {  // right arrow plays be
+        console.log('right arrow');
+		rightNum = keyNum + 1;		// equals 1 if first key hit; 2 if 2nd
+		keyNum = rightNum;			//updates counter 
+	
+    }
+
+    if (evt.which == 37) {  // left arrow pressed
+       	console.log('left arrow');
+   		leftNum = keyNum + 1;
+		keyNum = leftNum;
+	}
+
+
+   	if (evt.which ==38 ) {  // up arrow pressed
+       	console.log('up arrow');
+		upNum = keyNum + 1;
+		keyNum = upNum;
+   	}
+
+   	if (evt.which == 40  ) {  // down arrow pressed
+       	console.log('down arrow');
+		downNum = keyNum + 1;
+		keyNum = downNum;
+   	}
+
+	
+    if (evt.which == 32  ) {  // stop all
+       	console.log('space');
+        for (var i = 0; i < allAudio.length; i++) {
+           	allAudio[i].pause();
+        }
+    }
+if (keyNum == 2 && ((tempR == rightNum && tempL == leftNum) && (tempU == upNum && tempD == downNum))){
+	//COMBINATIONS
+	if (rightNum == 1 && leftNum == 2 && keyNum ==2){ //combo: R + L = "imma"
+		console.log(a);
+		playAudio(allAudio[0]);
+		info(1);
+		keyNum = 0;
+		rightNum = 0;
+		leftNum = 0;
+		upNum = 0;
+		downNum = 0;
+		
+		prompt();
+	}
+	
+	
+	if (rightNum == 2 && leftNum == 1 && keyNum ==2){ //combo: L + R = "be"
+		console.log(b);
+		playAudio(allAudio[1]);
+		info(b);
+		keyNum = 0;
+		rightNum = 0;
+		leftNum = 0;
+		upNum = 0;
+		downNum = 0;
+		
+		prompt();
+	}
+	
+	if (upNum == 1 && downNum == 2 && keyNum ==2){ //combo: U + D = "disway"
+		console.log(c);
+		playAudio(allAudio[2]);
+		info(c);
+		keyNum = 0;
+		rightNum = 0;
+		leftNum = 0;
+		upNum = 0;
+		downNum = 0;
+		
+		prompt();
+	}
+	
+	if (downNum == 1 && upNum == 2 && keyNum ==2){ //combo: D + U = "rich baby"
+		console.log(d);
+		playAudio(allAudio[3]);
+		info(d);
+
+		keyNum = 0;
+		rightNum = 0;
+		leftNum = 0;
+		upNum = 0;
+		downNum = 0;
+		
+		prompt();
+	}
+}
+	else {
+		console.log(keyNum);
+		if (keyNum >= 2) {
+			keyNum = 0;
+			rightNum = 0;
+			leftNum = 0;
+			upNum = 0;
+			downNum = 0;
+		}
+	}
+
+}
+
+
+// tells the web page to call the keydown
+//  function whenever a key is pressed
+
+$(document).keydown(keydown);
+
+
+//keyup function as a loop, var li = pressedKeys[evt.keyCode];
+
+</script>
+</html>
